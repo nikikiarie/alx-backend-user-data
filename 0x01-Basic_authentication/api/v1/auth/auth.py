@@ -24,6 +24,7 @@ class Auth:
             ) -> str:
         '''Auth header
         '''
+        request = Flask(__name__)
         return None
 
     def current_user(
