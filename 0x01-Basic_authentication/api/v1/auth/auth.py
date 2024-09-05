@@ -24,11 +24,15 @@ class Auth:
             return False
         return False
 
-    def authorization_header(self, request=None) -> None:
+    def authorization_header(self, request=None) -> str:
         """
-        doc str
+        Checks auth header
         """
-        return
+        key = 'Authorization'
+
+        if request is None or key not in request.headers:
+            return
+        return request.headers.get(key)
 
     def current_user(self, request=None) -> None:
         """
