@@ -61,7 +61,8 @@ class BasicAuth(Auth):
             user_email (str): user email
             user_pwd (str): user password
         Returns:
-            User or None: User instance if valid credentials are found, else None
+            User or None: User instance if valid credentials are found
+            else None
         """
         if not (user_email and isinstance(user_email, str) and
                 user_pwd and isinstance(user_pwd, str)):
