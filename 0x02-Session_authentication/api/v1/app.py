@@ -35,12 +35,13 @@ def before_request():
         '/api/v1/status/',
         '/api/v1/unauthorized/',
         '/api/v1/forbidden/'
+        '/api/v1/auth_session/login'
     ]
     if auth is None:
         return
     if not auth.require_auth(request.path, included_paths):
         return
-    if auth.authorization_header(request) is None:
+    if not auth.session_cookie(request) and not auth.authorization_header(request):
         abort(401)
     if auth.current_user(request) is None:
         return abort(403)
