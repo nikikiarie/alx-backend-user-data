@@ -16,6 +16,10 @@ class SessionAuth(Auth):
         if not user_id or not isinstance(user_id, str):
             return
         
+        for session_id, stored_user_id in self.user_id_by_session_id.items():
+            if stored_user_id == user_id:
+                return session_id
+        
         session_id = str(uuid4())
 
         self.user_id_by_session_id[session_id] = user_id
