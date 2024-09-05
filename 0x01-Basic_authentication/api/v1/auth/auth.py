@@ -16,6 +16,10 @@ class Auth:
         """ determines if authentication is required """
         if path and not path.endswith('/'):
             path = path + '/'
+        for e_path in excluded_paths:
+            if path.startswith(e_path.split('*')[0]):
+                return False
+
         if not path or path not in excluded_paths:
             return True
         if not excluded_paths or excluded_paths == []:
