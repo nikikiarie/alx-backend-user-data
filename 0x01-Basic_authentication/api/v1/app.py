@@ -7,7 +7,6 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
-from typing import Literal
 
 
 app = Flask(__name__)
@@ -20,20 +19,6 @@ def not_found(error) -> str:
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
-
-
-@app.errorhandler(401)
-def unauthorized(error) -> tuple[str, Literal[401]]:
-    """ Not found handler
-    """
-    return jsonify({"error": "unauthorized"}), 401
-
-
-@app.errorhandler(403)
-def forbidden(error) -> tuple[str, Literal[403]]:
-    """ Not found handler
-    """
-    return jsonify({"error": "Forbidden"}), 403
 
 
 if __name__ == "__main__":
