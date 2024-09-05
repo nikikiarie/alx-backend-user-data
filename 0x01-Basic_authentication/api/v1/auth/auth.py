@@ -18,12 +18,12 @@ class Auth:
 
     def authorization_header(self, request=None) -> None:
         """
-
+        doc str
         """
         return
 
     def current_user(self, request=None) -> None:
         """
-        
+        doc str
         """
         return
