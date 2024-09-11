@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request, abort, redirect, Response
 app = Flask(__name__)
 
 
-app.route("/")
+@app.route("/")
 def index() -> Response:
     """Index page
     """
