@@ -40,6 +40,7 @@ def login() -> str:
     res.set_cookie("session_id", id_session)
     return res
 
+
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """ handles session deletion """
