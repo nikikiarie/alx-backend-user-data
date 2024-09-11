@@ -56,3 +56,19 @@ class DB:
         if res is None:
             raise NoResultFound()
         return res
+
+    def update_user(self, user_id: int, *args, **kwargs) -> None:
+        """ updates user """
+        arr = [
+            'email',
+            'id',
+            'hashed_password',
+            'session_id',
+            'reset_token'
+            ]
+        user = self.find_user_by(id=user_id)
+        for i in kwargs:
+            if i not in arr:
+                raise ValueError
+            user.__setattr__(i, kwargs[i])
+        self._session.commit()
