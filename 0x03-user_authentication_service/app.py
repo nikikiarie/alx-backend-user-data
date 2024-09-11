@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A simple Flask app
 """
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, Response
 
 
 app = Flask(__name__)
