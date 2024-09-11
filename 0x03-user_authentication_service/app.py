@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 app.route("/")
-def index() -> str:
+def index() -> Response:
     """Index page
     """
     return jsonify({"message": "Bienvenue"})
