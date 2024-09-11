@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """DB module
 """
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, tuple_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
@@ -18,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -43,12 +43,16 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """searches for user by kwargs
         """
-        for i in kwargs.keys():
-            if not hasattr(User, i):
+        a, b = [], []
+        for i, j in kwargs.items():
+            if hasattr(User, i):
+                a.append(getattr(User, i))
+                b.append(j)
+            else:
                 raise InvalidRequestError()
-
-        user = self._session.query(User).filter_by(**kwargs).first()
-
-        if user:
-            return user
-        raise NoResultFound()
+        res = self._session.query(User).filter(
+            tuple_(*a).in_([tuple(b)])
+        ).first()
+        if res is None:
+            raise NoResultFound()
+        return res
