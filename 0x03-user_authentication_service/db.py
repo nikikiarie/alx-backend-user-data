@@ -37,3 +37,16 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """searches for user by kwargs
+        """
+        for i in kwargs.keys():
+            if not hasattr(User, i):
+                raise InvalidRequestError()
+
+        user = self.session.query(User).filter_by(**kwargs).first()
+
+        if user:
+            return user
+        raise NoResultFound()
