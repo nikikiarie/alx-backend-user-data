@@ -48,7 +48,6 @@ def logout():
     user = AUTH.get_user_from_session_id(id_session)
     if not user:
         abort(403)
-
     AUTH.destroy_session(id_session)
     return redirect(url_for('index'))
 
