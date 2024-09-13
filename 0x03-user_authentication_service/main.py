@@ -31,8 +31,8 @@ def log_in(email: str, password: str) -> str:
     """test loggin in"""
     # get session_id
     endpoint = BASE_URL + "sessions"
-    data = {"email": email, "password": password}
-    res = requests.post(endpoint, data)
+    info = {"email": email, "password": password}
+    res = requests.post(endpoint, info)
     cookie = res.cookies["session_id"]
     assert 200 == res.status_code
     assert isinstance(cookie, str)
@@ -43,9 +43,9 @@ def update_password(email: str, reset_token: str,
                     new_password: str) -> None:
     """tests updating passwd"""
     endpoint = BASE_URL + "reset_password"
-    data = {"email": email, "reset_token": reset_token,
+    info = {"email": email, "reset_token": reset_token,
             "new_password": new_password}
-    res = requests.put(endpoint, data=data)
+    res = requests.put(endpoint, data=info)
     assert 200 == res.status_code
     payload = res.json()
     assert payload == {"email": email, "message": "Password updated"}
@@ -63,8 +63,8 @@ def profile_logged(session_id: str) -> None:
 def log_in_wrong_password(email: str, password: str) -> None:
     """tests logging in with wrong password"""
     endpoint = BASE_URL + "sessions"
-    data = {"email": email, "password": "wrong pswd"}
-    res = requests.post(endpoint, data=data)
+    info = {"email": email, "password": "wrong pswd"}
+    res = requests.post(endpoint, data=info)
     assert 401 == res.status_code
 
 
@@ -79,10 +79,10 @@ def log_out(session_id: str) -> None:
 def reset_password_token(email: str) -> str:
     """test  passwd reset"""
     endpoint = BASE_URL + "reset_password"
-    data = {
+    info = {
         "email": email,
     }
-    res = requests.post(endpoint, data=data)
+    res = requests.post(endpoint, data=info)
     assert 200 == res.status_code
     token = res.json()["reset_token"]
     assert len(token) == 36
