@@ -2,7 +2,7 @@
 """A simple Flask app
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort, redirect, Response
+from flask import Flask, jsonify, url_for, request, abort, redirect, Response
 
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def login() -> str:
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
-    """ handles session deletion """
+    """ handles session delete"""
     id_session = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(id_session)
     if not user:
